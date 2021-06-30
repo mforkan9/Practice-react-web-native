@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Header1 from "./components/Header/Header1"; 
+import Header2 from "./components/Header/Header2";
 
-function App() {
+export default function App() {
+  const [size, setSize] = useState({
+    x: window.innerWidth,
+    y: window.innerHeight
+  });
+  const updateSize = () =>
+    setSize({
+      x: window.innerWidth,
+      y: window.innerHeight
+    });
+  useEffect(() => (window.onresize = updateSize), []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <p>width is : {size.x}</p>
+      <p>height is : {size.y}</p>
+      {
+        size.x <= 500 && <h2>ami 500</h2> || size.x <= 700 && <h1>ani 700</h1> || size.x <= 1000 && <h1>ami 1000</h1>
+      }
+      {
+        size.x <= 500 ?
+      <Header2></Header2> :
+      <Header1></Header1>
+    }
+    </>
   );
 }
-
-export default App;
